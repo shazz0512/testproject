@@ -48,15 +48,13 @@ pipeline {
     }
     stage ('Deploy-To-Tomcat') {
             steps {
-                sh 'cp target/*.war /opt/tomcat9/webapps/webapp.war'
+                sh 'sudo cp target/*.war /opt/tomcat9/webapps/webapp.war'
               }             
     }
     stage ('DAST') {
       steps {
-        sshagent(['192.168.80.129']) {
-         sh 'ssh -o  StrictHostKeyChecking=no shuhari@192.168.80.129 "docker run -t owasp/zap2docker-stable zap-baseline.py -t http://192.168.80.131:8080/webapp/" || true '
+         sh 'sudo docker run -t owasp/zap2docker-stable zap-baseline.py -t http://http://65.2.75.99:8181/webapp/" || true '
         }
-      }
     }
 }
 }
