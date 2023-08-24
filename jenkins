@@ -58,20 +58,20 @@ pipeline {
     }
 }
 post {
-        always {
-            // Use Warnings NG Plugin to display reports
-            step([
-                $class: 'WarningsPublisher',
-                tools: [[$class: 'DependencyCheckTool', pattern: '**/odc-reports/dependency-check-report.xml']],
-                sourceCodeEncoding: 'UTF-8',
-                reportEncoding: 'UTF-8',
-                parserConfigurations: [
-                    // Parser configurations can be added if necessary
-                ],
-                ignoreFailedBuilds: false,
-                canComputeNew: true,
-                canResolveRelativePaths: false
-            ])
+       always {
+            script {
+                def reports = findFiles(glob: '**/odc-reports/dependency-check-report.xml')
+                recordIssues(
+                    enabledForFailure: true,
+                    tools: [dependencyCheck(pattern: '**/odc-reports/dependency-check-report.xml')],
+                    aggregatingResults: true
+                ) {
+                    def sourceFiles = reports.collect { it.path }
+                    scanForIssues tool: dependencyCheck(pattern: '**/odc-reports/dependency-check-report.xml'),
+                        sourceCodeEncoding: 'UTF-8', reportEncoding: 'UTF-8',
+                        sourceFiles: sourceFiles
+                }
+            }
         }
     }
 }
