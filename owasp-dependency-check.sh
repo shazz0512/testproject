@@ -10,11 +10,12 @@ if [ ! -d "$DATA_DIRECTORY" ]; then
     echo "Initially creating persistent directory: $DATA_DIRECTORY"
     mkdir -p "$DATA_DIRECTORY"
 fi
+echo "Data directory is : $DATA_DIRECTORY"
 if [ ! -d "$CACHE_DIRECTORY" ]; then
     echo "Initially creating persistent directory: $CACHE_DIRECTORY"
     mkdir -p "$CACHE_DIRECTORY"
 fi
-
+echo "Cache directory is : $CACHE_DIRECTORY"
 
 
 # Make sure we are using the latest version
