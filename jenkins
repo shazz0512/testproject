@@ -28,7 +28,7 @@ pipeline {
          sh 'sudo chmod +x owasp-dependency-check.sh'
          sh 'sudo bash owasp-dependency-check.sh'
          //sh 'sudo wget https://raw.githubusercontent.com/Achaursiya/Proj/main/pom.xml'
-         archiveArtifacts artifacts: '**/odc-reports/*', allowEmptyArchive: true
+         archiveArtifacts artifacts: '**/odc-reports/dependency-check-report.xml', allowEmptyArchive: true
         
       }
     }
@@ -61,10 +61,7 @@ post {
         always {
             // Use Warnings NG Plugin to display reports
            recordIssues(
-                tools: [dependencyCheck(pattern: '**/odc-reports/dependency-check-report.xml')],
-                sourceCodeEncoding: 'UTF-8',
-                reportEncoding: 'UTF-8',
-                reportFolders: [javaFolder: '/odc-reports']
+                tools: [dependencyCheck(pattern: '**/odc-reports/dependency-check-report.xml')]
             )
         }
     }
