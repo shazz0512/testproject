@@ -62,7 +62,6 @@ post {
             
             recordIssues(
                 tools: [dependencyCheck(pattern: '**/odc-reports/dependency-check-report.xml')]
-                toolInstallation: 'dependencyCheck'
             )
         }
     }
