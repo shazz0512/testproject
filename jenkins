@@ -61,17 +61,18 @@ post {
        always {
             script {
                 def reports = findFiles(glob: '**/odc-reports/dependency-check-report.xml')
+                def sourceFiles = reports.collect { it.path }
+                
                 recordIssues(
                     enabledForFailure: true,
                     tools: [dependencyCheck(pattern: '**/odc-reports/dependency-check-report.xml')],
                     aggregatingResults: true
                 ) {
-                    def sourceFiles = reports.collect { it.path }
                     scanForIssues tool: dependencyCheck(pattern: '**/odc-reports/dependency-check-report.xml'),
                         sourceCodeEncoding: 'UTF-8', reportEncoding: 'UTF-8',
                         sourceFiles: sourceFiles
                 }
             }
-        }
     }
+}
 }
