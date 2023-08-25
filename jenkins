@@ -57,5 +57,8 @@ pipeline {
          sh 'sudo ssh root@172.31.10.91 "sudo docker run --rm -u root -v /opt/zap:/zap/wrk:rw -t owasp/zap2docker-stable zap-baseline.py -t http://65.2.75.99:8181/webapp/ -x zap_report || true" '
         }
       }
+    stage ('Publish Reports') {
+      step {
+        junit '/odc-reports/dependency-check-junit.xml'
     }
 }
