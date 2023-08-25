@@ -58,7 +58,7 @@ pipeline {
         }
       }
     stage ('Publish Reports') {
-      step {
+      steps {
         junit '/odc-reports/dependency-check-junit.xml'
           }
 
