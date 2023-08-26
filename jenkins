@@ -27,7 +27,6 @@ pipeline {
          sh 'sudo wget "https://raw.githubusercontent.com/shazz0512/testproject/master/owasp-dependency-check.sh" '
          sh 'sudo chmod +x owasp-dependency-check.sh'
          sh 'sudo bash owasp-dependency-check.sh'
-         //sh 'sudo wget https://raw.githubusercontent.com/Achaursiya/Proj/main/pom.xml'
          archiveArtifacts artifacts: '**/odc-reports/*', allowEmptyArchive: true
         
       }
